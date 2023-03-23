@@ -3,7 +3,7 @@ screeps.com
 
 
 
-# start new project:
+# start new project: [OLD, inore this]
 > Took me hours to figure this out, so i put it here for anyone else looking for it.
 
 > npm install @types/screeps
