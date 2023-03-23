@@ -1,0 +1,2 @@
+# screepsBot
+screeps.com
