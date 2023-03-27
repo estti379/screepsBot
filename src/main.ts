@@ -1,4 +1,5 @@
 import { ErrorMapper } from "utils/ErrorMapper";
+import { CREEP_BODY_TYPE, spawnerGroupLogic} from "Logic/spawnerLogic";
 
 declare global {
   /*
@@ -9,17 +10,20 @@ declare global {
     Types added in this `global` block are in an ambient, global context. This is needed because `main.ts` is a module file (uses import or export).
     Interfaces matching on name from @types/screeps will be merged. This is how you can extend the 'built-in' interfaces from @types/screeps.
   */
+
+/*
   // Memory extension samples
   interface Memory {
     uuid: number;
     log: any;
   }
+*/
 
   interface CreepMemory {
-    role: string;
-    room: string;
-    working: boolean;
+    creepType:CREEP_BODY_TYPE;
   }
+
+/*
 
   // Syntax for adding proprties to `global` (ex "global.log")
   namespace NodeJS {
@@ -27,13 +31,15 @@ declare global {
       log: any;
     }
   }
+*/
+
 }
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
     console.log(`Current game tick is ${Game.time}`);
-    console.log(BODYPART_COST.work);
+    spawnerGroupLogic();
 
 
     // Automatically delete memory of missing creeps
