@@ -1,6 +1,4 @@
-export enum CREEP_BODY_TYPE {
-    Balanced = "balanced",
-  }
+import { CREEP_WORK_TYPE, CREEP_BODY_TYPE, CREEP_ROLE_TYPE} from "Logic/creeps/creepsLogic";
 
 export function spawnerGroupLogic():void{
     for (const name in Game.spawns) {
@@ -44,7 +42,9 @@ function spawnCreep(spawner:StructureSpawn, maxEnergyCost:number, creeperType:CR
     body = createBody(maxEnergyCost, creeperType);
 
     spawner.spawnCreep(body, creeperType + spawner.name + "_" + Game.time, {
-        memory: {creepType: creeperType}
+        memory: {creepType: creeperType,
+                workType: CREEP_WORK_TYPE.Undefined,
+                roleType: CREEP_ROLE_TYPE.Undefined}
     });
 
 }

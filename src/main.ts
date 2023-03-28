@@ -1,5 +1,6 @@
 import { ErrorMapper } from "utils/ErrorMapper";
-import { CREEP_BODY_TYPE, spawnerGroupLogic} from "Logic/spawnerLogic";
+import { spawnerGroupLogic} from "Logic/spawnerLogic";
+import { CREEP_BODY_TYPE, CREEP_WORK_TYPE, CREEP_ROLE_TYPE, occupyScreeps} from "Logic/creeps/creepsLogic";
 
 declare global {
   /*
@@ -11,16 +12,17 @@ declare global {
     Interfaces matching on name from @types/screeps will be merged. This is how you can extend the 'built-in' interfaces from @types/screeps.
   */
 
-/*
+
   // Memory extension samples
   interface Memory {
-    uuid: number;
-    log: any;
+    totalCreeps: creepNumbers;
   }
-*/
+
 
   interface CreepMemory {
     creepType:CREEP_BODY_TYPE;
+    workType:CREEP_WORK_TYPE;
+    roleType:CREEP_ROLE_TYPE;
   }
 
 /*
@@ -35,11 +37,20 @@ declare global {
 
 }
 
+interface creepNumbers {
+    harvesters: number;
+    upgraders: number;
+}
+
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
     console.log(`Current game tick is ${Game.time}`);
+
+
+
     spawnerGroupLogic();
+    occupyScreeps();
 
 
     // Automatically delete memory of missing creeps
