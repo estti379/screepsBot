@@ -1,6 +1,7 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 import { spawnerGroupLogic} from "Logic/spawnerLogic";
-import { CREEP_BODY_TYPE, CREEP_WORK_TYPE, CREEP_ROLE_TYPE, occupyScreeps} from "Logic/creeps/creepsLogic";
+import { CREEP_BODY_TYPE, CREEP_WORK_TYPE, CREEP_ROLE_TYPE,
+    occupyScreeps, creepNumberLimitation} from "Logic/creeps/creepsLogic";
 
 declare global {
   /*
@@ -15,7 +16,7 @@ declare global {
 
   // Memory extension samples
   interface Memory {
-    totalCreeps: creepNumbers;
+    totalCreeps: CreepNumbers;
   }
 
 
@@ -37,7 +38,7 @@ declare global {
 
 }
 
-interface creepNumbers {
+export interface CreepNumbers {
     harvesters: number;
     upgraders: number;
 }
@@ -48,7 +49,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
     console.log(`Current game tick is ${Game.time}`);
 
 
-
+    creepNumberLimitation();
     spawnerGroupLogic();
     occupyScreeps();
 

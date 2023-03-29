@@ -1,3 +1,7 @@
+import { CreepNumbers } from "../../main";
+
+let creepsLimit:CreepNumbers;
+
 export enum CREEP_WORK_TYPE {
     Undefined = "undefined",
     Harvesting = "harvesting",
@@ -22,10 +26,15 @@ export function occupyScreeps():void{
 }
 
 export function creepNumberLimitation():void{
-    Object.keys(Game.creeps).length != Memory.totalCreeps.harvesters + Memory.totalCreeps.harvesters;
+    //const currentTotalCreeps = Object.keys(Game.creeps).length;
+    console.log('here');
+    //console.log("Number of creeps: " + creepsAccountedFor() );
+    //if(currentTotalCreeps != creepsAccountedFor()){}
+
 }
 
 function controlCreep(creep:Creep):void {
+
     switch (creep.memory.roleType) {
         case CREEP_ROLE_TYPE.Harvester:
             creepHarvestEnergy(creep);
@@ -115,4 +124,13 @@ function creepUpgradeRoomController(creep:Creep):void{
             creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         }
     }
+}
+
+function creepsAccountedFor():number{
+    let result:number = 0;
+    (Object.keys(Memory.totalCreeps) as (keyof typeof Memory.totalCreeps)[] ).forEach(function(prop){
+        result = result + Memory.totalCreeps[prop];
+        console.log(prop + " : " + Memory.totalCreeps[prop]);
+    });
+    return result;
 }
